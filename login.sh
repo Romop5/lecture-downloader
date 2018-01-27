@@ -10,6 +10,15 @@ if [ "$REQUIRED" ] ; then
     exit 0
 fi
 
+# Check if this script is called from downloader.
+# If it is, send a notification to Window manager
+
+if [ "$1" = "downloader" ]; then
+    notify-send -u critical "Enter your login - @ FIT VUT" "Please, enter your credentials, so the downloader could continue downloading lectures"
+fi
+
+
+
 RESPONSE="Required"
 # Keeps asking the password until the page doens't contain keyword Required
 while [ -n "`echo $RESPONSE | grep 'Required'`" ]

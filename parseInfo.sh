@@ -15,7 +15,13 @@
 
 YEARS=`curl -sS -i -L -k -b login-cookie https://video1.fit.vutbr.cz/av/records-categ.php?id=1 | iconv -f ISO-8859-2 -t UTF-8 | grep "<li "  | sed 's/.*id=\([0-9]*\) class.*>\(.*\)<\/a>.*/"\1" "\2"/' | tr '\n' ' '`
 
-OPTION=$(echo "$YEARS" | xargs whiptail --title "Choose the year: " --notags --menu "Choose streaming year" 25 78 16 3>&1 1>&2 2>&3) 
+OPTION=$(echo "$YEARS" | xargs whiptail --title "Choose the year: " --notags --cancel-button "Return back"  --menu "Choose streaming year" 25 78 16 3>&1 1>&2 2>&3) 
+
+# Test if <Cancel> was pushed. If it was, return back / exit script.
+RETVAL=$?
+if [ $RETVAL -ne 0 ]; then
+    exit 0
+fi
 
 #echo $OPTION
 
@@ -27,7 +33,14 @@ OPTION=$(echo "$YEARS" | xargs whiptail --title "Choose the year: " --notags --m
 # Get list of years
 SUBJECTS=`curl -sS -i -L -k -b login-cookie https://video1.fit.vutbr.cz/av/records-categ.php?id=$OPTION | iconv -f ISO-8859-2 -t UTF-8 | grep "<li "  | sed 's/.*id=\([0-9]*\) class.*>\(.*\)<\/a>.*/"\1" "\2"/' | tr '\n' ' '`
 
-SUBJECT=$(echo "$SUBJECTS" | xargs whiptail --title "Choose the subject: " --notags --menu "Choose streaming year" 25 78 16 3>&1 1>&2 2>&3) 
+SUBJECT=$(echo "$SUBJECTS" | xargs whiptail --title "Choose the subject: " --cancel-button "Return back" --notags --menu "Choose streaming year" 25 78 16 3>&1 1>&2 2>&3) 
+
+# Test if <Cancel> was pushed. If it was, return back / exit script.
+RETVAL=$?
+if [ $RETVAL -ne 0 ]; then
+    exit 0
+fi
+
 
 # Toggle default ON/OFF
 TOGGLE="ON"
