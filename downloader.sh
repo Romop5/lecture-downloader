@@ -14,7 +14,7 @@ fi
 if [ ! -e downloadQueue ]; then
 
     echo "There is no downloadQueue -> nothing to do here."
-    exit 0
+    exit 1
 fi
 
 while [ "`wc downloadQueue --lines`" != "0" ]; do
@@ -67,3 +67,4 @@ while [ "`wc downloadQueue --lines`" != "0" ]; do
 
 done
 
+exit 0

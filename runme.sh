@@ -31,9 +31,16 @@ while true; do
 
     case $RECORD in
         "1" )
+            whiptail --title "Wait" --infobox "Processing" 10 80
             ./parseInfo.sh
             ;;
         "2" )
+            ./downloader.sh
+            if [ "$?" -eq 0 ]; then 
+                whiptail --msgbox "Downloading Done" 7 20
+            else
+                whiptail --msgbox "Nothing to do" 7 20
+            fi
             ;;
         "3" )
             echo "Bye bye"
