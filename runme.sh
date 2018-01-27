@@ -18,10 +18,10 @@ fi
 while true; do
     QUEUE_LENGTH=0
     if [ -e downloadQueue ]; then
-        QUEUE_LENGTH=`wc downloadQueue --lines`
+        QUEUE_LENGTH=`wc --lines downloadQueue`
     fi
     
-    RECORD=$(whiptail --title "Lecture Downloader @ FIT VUTBR" --menu "What do you want ? There $QUEUE_LENGTH items in queue currently." 15 48 5 \
+    RECORD=$(whiptail --nocancel --title "Lecture Downloader @ FIT VUTBR" --menu "What do you want ? There are $QUEUE_LENGTH items in queue currently." 15 48 5 \
     "1" "Select lectures to download" \
     "2" "Start downloading (VIDEO)." \
     "2" "Start downloading (MP3)." \

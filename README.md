@@ -1,4 +1,5 @@
 # Unofficial Lecture Downloader @ FIT BUT
+![alt main menu](menu.png)
 ## What is it ?
 This is a simple *collection of shell scripts* with GUI that allows you to select many lectures at once to downloading queue and let them download later / gradually.
 
