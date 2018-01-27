@@ -33,7 +33,7 @@ while [ "`wc downloadQueue --lines`" != "0" ]; do
 
 
         #Get URL with server 
-        URL=`curl -b login-cookie -L -k https://video1.fit.vutbr.cz/av/records.php?id=$TOPFILE | grep -a -Po 'href="\K[^"]*' | grep "video" | grep "/av/record" | grep -v "mp3"`
+        URL=`curl -sS -b login-cookie -L -k https://video1.fit.vutbr.cz/av/records.php?id=$TOPFILE | grep -a -Po 'href="\K[^"]*' | grep "video" | grep "/av/record" | grep -v "mp3"`
 
         echo "URL $URL"
         if [ "$URL" = "" ]; then
