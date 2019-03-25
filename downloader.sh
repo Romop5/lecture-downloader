@@ -17,6 +17,10 @@ if [ ! -e downloadQueue ]; then
     exit 1
 fi
 
+# Switch download dir
+downloadDir=$(zenity  --file-selection --title="Choose a download directory" --directory)
+currentDir="$PWD"
+
 while [ "`wc downloadQueue --lines`" != "0" ]; do
 
     echo "`wc downloadQueue --lines`"
@@ -45,7 +49,9 @@ while [ "`wc downloadQueue --lines`" != "0" ]; do
         #   -O saves the output into file, given by URL
         #   -J makes sure the output name is extracted from Content-Disposition
         #   -D dumps HTTP header -> the only way to find out if we were successful
-        curl -O -J -b login-cookie -L -k $URL -D "$TMPHEADER"
+        cd "$downloadDir"
+        curl -O -J -b "$currentDir/login-cookie" -L -k $URL -D "$TMPHEADER"
+        cd "$currentDir"
 
         # Check if video was received
         if [ "`grep "video" < "$TMPHEADER"`" != "" ]; then
